@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,127 +8,208 @@
 /* ======================
    Reset & Global
 ====================== */
-* {margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;}
-body {background:#0D0D0D;color:#C0C0C0;line-height:1.6;scroll-behavior:smooth;}
-a {text-decoration:none;color:#E10600;}
-section {
-  padding:60px 20px;
-  max-width:1000px;
-  margin:auto;
-  opacity:1;              
-  transform:translateY(0); 
-  transition:none;          
+* {margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;}
+body {
+    background: #080808;
+    color: #C0C0C0;
+    line-height: 1.6;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
 }
-h2 {color:#E10600;font-size:2em;margin-bottom:20px;border-bottom:2px solid #E10600;display:inline-block;padding-bottom:5px;}
+a {text-decoration:none; color:inherit;}
+
+/* أنيميشن الانتقال للأقسام */
+section {
+    padding: 80px 20px;
+    max-width: 1000px;
+    margin: 50px auto;
+    border-radius: 20px;
+    transition: all 0.8s cubic-bezier(0.2, 1, 0.3, 1);
+    position: relative;
+    overflow: hidden;
+    background-size: cover !important;
+    background-position: center !important;
+    border: 1px solid rgba(225, 6, 0, 0.3);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+/* طبقة تظليل فوق الصور لتوضيح الكلام */
+section::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0, 0, 0, 0.75); /* تظليل خلفية الكلام */
+    z-index: 1;
+}
+
+/* التأكد من بقاء النص فوق التظليل */
+section > * {
+    position: relative;
+    z-index: 2;
+}
+
+/* تخصيص خلفيات الأقسام (صور ثائرة) */
+#rules { background: url('https://i.imgur.com/lLuGHdT.jpeg'); } /* خلفية قوانين */
+#staff { background: url('https://i.imgur.com/zC8mBib.jpeg'); } /* خلفية فريق العمل */
+#about { background: url('https://i.imgur.com/rXbSYuM.jpeg'); } /* خلفية عن المجتمع */
+#faq { background: url('https://i.imgur.com/dhrlyJ6.jpeg'); } /* خلفية الأسئلة */
+
+h2 {color:#E10600; font-size:2.2em; margin-bottom:30px; border-right: 5px solid #E10600; padding-right: 15px;}
 
 /* ======================
-   Header
+   Header & Dropdown
 ====================== */
-header {position:sticky;top:0;background:#111111;display:flex;justify-content:space-between;align-items:center;padding:10px 30px;z-index:1000;border-bottom:2px solid #E10600;}
-header img {height:50px;}
-nav a {margin-left:20px;font-weight:bold;transition:.3s;}
-nav a:hover {color:#B11226;}
+header {
+    position: fixed;
+    top: 0; width: 100%;
+    background: rgba(17, 17, 17, 0.95);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 40px;
+    z-index: 2000;
+    border-bottom: 2px solid #E10600;
+}
+header img {height: 50px;}
+
+.dropdown { position: relative; display: inline-block; }
+.dropbtn {
+    background: #E10600;
+    color: white;
+    padding: 12px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #111;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px rgba(0,0,0,0.5);
+    z-index: 1;
+    border: 1px solid #E10600;
+    left: 0;
+}
+.dropdown-content a {
+    color: white;
+    padding: 12px 16px;
+    display: block;
+    text-align: right;
+    transition: 0.3s;
+}
+.dropdown-content a:hover { background-color: #E10600; transform: translateX(-5px); }
+.dropdown:hover .dropdown-content { display: block; animation: fadeIn 0.3s; }
+
+@keyframes fadeIn { from {opacity:0;} to {opacity:1;} }
 
 /* ======================
    Hero Section
 ====================== */
-.hero {display:flex;flex-direction:column;align-items:center;text-align:center;padding:80px 20px;border-bottom:2px solid #E10600;}
-.hero img {width:200px;height:200px;border-radius:15px;box-shadow:0 0 25px #E10600;margin-bottom:20px;transition:.5s;}
-.hero img:hover {transform:scale(1.05);}
-.hero h1 {color:#E10600;font-size:3em;margin-bottom:10px;}
-.hero p {max-width:800px;margin-bottom:20px;}
-.hero .btn {padding:12px 25px;background:#E10600;color:#fff;border:none;border-radius:8px;cursor:pointer;font-weight:bold;transition:.3s;}
-.hero .btn:hover {background:#B11226;transform:scale(1.05);}
-
-/* ======================
-   Staff Cards
-====================== */
-.staff-grid {display:flex;flex-wrap:wrap;gap:20px;}
-.staff-card {background:#111111;padding:20px;flex:1 1 250px;border:2px solid #E10600;border-radius:12px;text-align:center;box-shadow:0 0 12px #E10600;transition:.3s;}
-.staff-card img {width:100px;height:100px;border-radius:50%;margin-bottom:10px;transition:.3s;}
-.staff-card:hover {transform:translateY(-5px);box-shadow:0 0 20px #E10600;}
-
-/* ======================
-   Cards Features & Rules
-====================== */
-.card {background:#111111;padding:20px;margin-bottom:20px;border-left:5px solid #E10600;border-radius:8px;box-shadow:0 0 8px #E10600;transition:.3s;}
-.card:hover {transform:translateY(-3px);box-shadow:0 0 15px #E10600;}
-.card h3 {color:#E10600;margin-bottom:10px;}
-
-/* ======================
-   FAQ Accordion
-====================== */
-.faq-item {border:1px solid #E10600;border-radius:8px;margin-bottom:10px;overflow:hidden;}
-.faq-item button {width:100%;background:#111111;color:#C0C0C0;padding:15px;text-align:right;font-size:1em;border:none;outline:none;cursor:pointer;transition:.3s;}
-.faq-item button:hover {background-color:#1C0C0C;}
-.faq-item .faq-content {padding:0 15px;max-height:0;overflow:hidden;transition:max-height .3s ease;background-color:#0D0D0D;}
-
-/* ======================
-   Footer Button
-====================== */
-.footer-btn {position:fixed;bottom:20px;right:20px;background:#E10600;color:#fff;border:none;padding:15px 20px;border-radius:10px;cursor:pointer;font-weight:bold;box-shadow:0 0 15px #E10600;transition:.3s;}
-.footer-btn:hover {background:#B11226;transform:scale(1.05);}
-
-/* ======================
-   Responsive
-====================== */
-@media(max-width:768px){
-.staff-grid {flex-direction:column;align-items:center;}
-header {flex-direction:column;}
-nav a {margin:10px 5px;}
+.hero {
+    display: flex; flex-direction: column; align-items: center; text-align: center;
+    padding: 120px 20px; border-bottom: 3px solid #E10600;
+    background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('https://i.imgur.com/Pbsd4opng');
+    background-size: contain;
 }
+.hero img {width: 200px; border-radius: 20px; box-shadow: 0 0 30px #E10600; margin-bottom: 25px;}
+.hero h1 {color:#E10600; font-size: 3.5em; margin-bottom: 15px;}
+
+/* ======================
+   Staff & Cards
+====================== */
+.staff-grid {display: flex; flex-wrap: wrap; gap: 20px;}
+.staff-card {
+    background: rgba(17,17,17,0.9); padding: 20px; flex: 1 1 250px;
+    border: 2px solid #E10600; border-radius: 12px; text-align: center;
+    transition: 0.4s;
+}
+.staff-card:hover {transform: scale(1.05); box-shadow: 0 0 20px #E10600;}
+.staff-card img {width: 100px; height: 100px; border-radius: 50%; margin-bottom: 10px;}
+
+.card {
+    background: rgba(17,17,17,0.8); padding: 20px; margin-bottom: 20px;
+    border-left: 5px solid #E10600; border-radius: 8px; transition: 0.3s;
+}
+.card:hover {transform: translateX(-10px); background: rgba(225,6,0,0.1);}
+
+/* ======================
+   Buttons & Animations
+====================== */
+.footer-btn {
+    position: fixed; bottom: 20px; left: 20px;
+    background: #E10600; color: #fff; border: none;
+    padding: 15px 25px; border-radius: 10px; cursor: pointer;
+    font-weight: bold; box-shadow: 0 0 15px #E10600; z-index: 100;
+}
+
+/* تأثير الضغطة */
+.btn-animate { transition: transform 0.1s; }
+.btn-animate:active { transform: scale(0.9) rotate(2deg); }
+
+/* ======================
+   FAQ
+====================== */
+.faq-item {border: 1px solid #E10600; margin-bottom: 10px; border-radius: 8px; background: rgba(0,0,0,0.5);}
+.faq-item button {
+    width: 100%; background: none; color: #fff; padding: 15px;
+    text-align: right; border: none; cursor: pointer; font-size: 1.1em;
+}
+.faq-content { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; background: rgba(0,0,0,0.3); }
+
+@media(max-width:768px){ header {flex-direction: row; padding: 10px;} .hero h1 {font-size: 2.2em;} }
 </style>
 </head>
 <body>
 
-<!-- Header -->
 <header>
-  <img src="https://i.imgur.com/Pbsd4po.png" alt="ICONS COMMUNITY Logo">
-  <nav>
-    <a href="#about">عن السيرفر</a>
-    <a href="#faq">الأسئلة</a>
-    <a href="#staff">الفريق</a>
-    <a href="#rules">القوانين</a>
-  </nav>
+  <img src="https://i.imgur.com/rpga9P1.png" alt="ICONS COMMUNITY">
+  <div class="dropdown">
+    <button class="dropbtn">اضهر القائمة</button>
+    <nav class="dropdown-content">
+      <a href="#home">الرئيسية</a>
+      <a href="#rules">القوانين</a>
+      <a href="#staff">الإدارة</a>
+      <a href="#about">عن المجتمع</a>
+      <a href="#faq">الأسئلة</a>
+    </nav>
+  </div>
 </header>
 
-<!-- Hero Section -->
 <section class="hero" id="home">
+  <img src="https://i.imgur.com/13OD7nE.jpeg" alt="ICONS COMMUNITY">
   <h1>ICONS COMMUNITY</h1>
   <p>هو سيرفر ديسكورد احترافي يهدف إلى بناء مجتمع تفاعلي يجمع بين الإبداع، التطوير، والترفيه في بيئة منظمة وآمنة للجميع.
-
-نسعى إلى توفير مساحة تجمع أصحاب الاهتمامات المشتركة، سواء في مجالات الألعاب، التقنية، التصميم، صناعة المحتوى، أو حتى النقاشات العامة، مع التركيز على الاحترام المتبادل وروح التعاون
-
-نسعى الى بناء مجتمع مميز يكون مرجعًا للإبداع والتفاعل الإيجابي، ويمنح أعضائه فرصة للنمو وتطوير مهاراتهم ضمن بيئة داعمة ومحفزة</p>
+  نسعى إلى توفير مساحة تجمع أصحاب الاهتمامات المشتركة، سواء في مجالات الألعاب، التقنية، التصميم، صناعة المحتوى، أو حتى النقاشات العامة، مع التركيز على الاحترام المتبادل وروح التعاون
+  نسعى الى بناء مجتمع مميز يكون مرجعًا للإبداع والتفاعل الإيجابي، ويمنح أعضائه فرصة للنمو وتطوير مهاراتهم ضمن بيئة داعمة ومحفزة</p>
 </section>
 
-<!-- Rules Section -->
 <section id="rules">
 <h2>RULES | ICONS COMMUNITY</h2>
-<div class="card"><h3>احترام الأعضاء</h3><p>احترام جميع الأعضاء وعدم الإساءة.</p></div>
-<div class="card"><h3>منع السب والشتم</h3><p>عدم استخدام أي ألفاظ مسيئة أو مهينة.</p></div>
-<div class="card"><h3>منع الإعلانات</h3><p>ممنوع نشر روابط أو إعلانات بدون إذن OWNER.</p></div>
-<div class="card"><h3>الالتزام بالقنوات</h3><p>احترام الرومات الكتابية والصوتية.</p></div>
+<div class="card btn-animate"><h3>احترام الأعضاء</h3><p>احترام جميع الأعضاء وعدم الإساءة.</p></div>
+<div class="card btn-animate"><h3>منع السب والشتم</h3><p>عدم استخدام أي ألفاظ مسيئة أو مهينة.</p></div>
+<div class="card btn-animate"><h3>منع الإعلانات</h3><p>ممنوع نشر روابط أو إعلانات بدون إذن OWNER.</p></div>
+<div class="card btn-animate"><h3>الالتزام بالقنوات</h3><p>احترام الرومات الكتابية والصوتية.</p></div>
 </section>
 
-<!-- Staff Section -->
 <section id="staff">
 <h2>STAFF TEAM | ICONS COMMUNITY</h2>
 <div class="staff-grid">
-<div class="staff-card"><img src="https://i.imgur.com/JhfNkuM.png"><h3>BLACK | OWNER</h3></div>
-<div class="staff-card"><img src="https://i.imgur.com/AKebnUh.png"><h3>AHMED | CO OWNER</h3></div>
-<div class="staff-card"><img src="https://i.imgur.com/pcHCDC4.gif"><h3>MAJED | CO OWNER</h3></div>
-<div class="staff-card"><img src="https://i.imgur.com/0O7RCwO.png"><h3>AZOZ | SENIOR</h3></div>
-<div class="staff-card"><img src="https://i.imgur.com/B149Tkc.gif"><h3>CHEF | SENIOR</h3></div>
-<div class="staff-card"><img src="https://i.imgur.com/cGEvFCQ.png"><h3>HAMADA | DISTINGUISHED</h3></div>
+<div class="staff-card btn-animate"><img src="https://i.imgur.com/JhfNkuM.png"><h3>BLACK | OWNER</h3></div>
+<div class="staff-card btn-animate"><img src="https://i.imgur.com/AKebnUh.png"><h3>AHMED | CO OWNER</h3></div>
+<div class="staff-card btn-animate"><img src="https://i.imgur.com/pcHCDC4.gif"><h3>MAJED | CO OWNER</h3></div>
+<div class="staff-card btn-animate"><img src="https://i.imgur.com/0O7RCwO.png"><h3>AZOZ | SENIOR</h3></div>
+<div class="staff-card btn-animate"><img src="https://i.imgur.com/B149Tkc.gif"><h3>CHEF | SENIOR</h3></div>
+<div class="staff-card btn-animate"><img src="https://i.imgur.com/cGEvFCQ.png"><h3>HAMADA | DISTINGUISHED</h3></div>
 </div>
 </section>
 
-<!-- About Section -->
 <section id="about">
 <h2>ABOUT US | ICONS COMMUNITY</h2>
 <p>ICONS COMMUNITY هو مجتمع ديسكورد متنوع تم تأسيسه قبل 380 يوم، ويهدف إلى جمع الأعضاء في بيئة تفاعلية يسودها الاحترام، وسعة الصدر، وروح الاستمتاع الجماعي.</p>
-<ul>
+<ul style="margin-right: 25px; color: #E10600; font-weight: bold;">
 <li>الألعاب</li>
 <li>التقنية</li>
 <li>النقاشات العامة</li>
@@ -137,28 +218,47 @@ nav a {margin:10px 5px;}
 <p>ما يميز ICONS COMMUNITY هو اعتماد أنظمة وبوتات متقدمة تسهّل على العضو تنفيذ ما يريد بسرعة وسلاسة، مع تنظيم يحافظ على تجربة مريحة وآمنة للجميع.</p>
 </section>
 
-<!-- FAQ Section -->
 <section id="faq">
 <h2>❓ FAQ | ICONS COMMUNITY</h2>
-<div class="faq-item"><button>كيف أرفع اللفل؟</button><div class="faq-content"><p>النشاط الكتابي، التفاعل الصوتي، نظام النقاط.</p></div></div>
-<div class="faq-item"><button>فوائد رفع اللفل؟</button><div class="faq-content"><p>رتب وصلاحيات وذهب وغرف صوتية مؤقتة.</p></div></div>
-<div class="faq-item"><button>ماهي فائدتها؟ SERVER BOOSTER رتبه</button><div class="faq-content"><p>تمنح عند دعم السيرفر ويتم اعطائك صلاحيه انشاء رول مخصص باسمك.</p></div></div>
-<div class="faq-item"><button>الإعلانات مسموحة؟</button><div class="faq-content"><p>واخذ الموافقة لنشر اعلانك , owner تواصل مع .</p></div></div>
-<div class="faq-item"><button>ماذا عند مخالفة القوانين؟</button><div class="faq-content"><p>تحذير → ميوت → تايم أوت.</p></div></div>
-<div class="faq-item"><button>كيف أرتقي في الرتب؟</button><div class="faq-content"><p>حسب نشاط العضو وتفاعله.</p></div></div>
-<div class="faq-item"><button>التواصل مع الإدارة؟</button><div class="faq-content"><p>عبر الخاص مع اي شخص يمتلك رول سينيور فما أعلى.</p></div></div>
-<div class="faq-item"><button>فعاليات مستقبلية؟</button><div class="faq-content"><p>نعم، مخطط لإطلاق فعاليات ومسابقات.</p></div></div>
-<div class="faq-item"><button>اقتراحات تطوير؟</button><div class="faq-content"><p>تواصل مع المبرمج واطرح فكرتك.</p></div></div>
+<div class="faq-item"><button class="btn-animate">كيف أرفع اللفل؟</button><div class="faq-content"><p style="padding:15px;">النشاط الكتابي، التفاعل الصوتي، نظام النقاط.</p></div></div>
+<div class="faq-item"><button class="btn-animate">فوائد رفع اللفل؟</button><div class="faq-content"><p style="padding:15px;">رتب وصلاحيات وذهب وغرف صوتية مؤقتة.</p></div></div>
+<div class="faq-item"><button class="btn-animate">ماهي فائدتها؟ SERVER BOOSTER رتبه</button><div class="faq-content"><p style="padding:15px;">تمنح عند دعم السيرفر ويتم اعطائك صلاحيه انشاء رول مخصص باسمك.</p></div></div>
+<div class="faq-item"><button class="btn-animate">الإعلانات مسموحة؟</button><div class="faq-content"><p style="padding:15px;">واخذ الموافقة لنشر اعلانك , owner تواصل مع .</p></div></div>
+<div class="faq-item"><button class="btn-animate">ماذا عند مخالفة القوانين؟</button><div class="faq-content"><p style="padding:15px;">تحذير → ميوت → تايم أوت.</p></div></div>
+<div class="faq-item"><button class="btn-animate">كيف أرتقي في الرتب؟</button><div class="faq-content"><p style="padding:15px;">حسب نشاط العضو وتفاعله.</p></div></div>
+<div class="faq-item"><button class="btn-animate">التواصل مع الإدارة؟</button><div class="faq-content"><p style="padding:15px;">عبر الخاص مع اي شخص يمتلك رول سينيور فما أعلى.</p></div></div>
+<div class="faq-item"><button class="btn-animate">فعاليات مستقبلية؟</button><div class="faq-content"><p style="padding:15px;">نعم، مخطط لإطلاق فعاليات ومسابقات.</p></div></div>
+<div class="faq-item"><button class="btn-animate">اقتراحات تطوير؟</button><div class="faq-content"><p style="padding:15px;">تواصل مع المبرمج واطرح فكرتك.</p></div></div>
 </section>
 
-<!-- Footer Button -->
-<button class="footer-btn" onclick="window.open('https://discord.gg/ico1', '_blank')">دخول للسيرفر</button>
+<button class="footer-btn btn-animate" onclick="window.open('https://discord.gg/ico1', '_blank')">دخول للسيرفر</button>
+
 <script>
 // FAQ Accordion
 const faqs=document.querySelectorAll(".faq-item button");
-faqs.forEach(btn=>{btn.addEventListener("click",()=>{const c=btn.nextElementSibling;c.style.maxHeight=c.style.maxHeight?null:c.scrollHeight+"px";});});
+faqs.forEach(btn=>{
+    btn.addEventListener("click",()=>{
+        const c=btn.nextElementSibling;
+        c.style.maxHeight=c.style.maxHeight?null:c.scrollHeight+"px";
+    });
+});
 
+// Scroll Animation Effect
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.style.opacity = "1";
+            entry.target.style.transform = "translateY(0) scale(1)";
+        } else {
+            entry.target.style.opacity = "0.3";
+            entry.target.style.transform = "translateY(50px) scale(0.95)";
+        }
+    });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('section').forEach(section => {
+    observer.observe(section);
+});
 </script>
 </body>
 </html>
-
