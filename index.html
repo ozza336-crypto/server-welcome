@@ -1,265 +1,420 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ICONS COMMUNITY</title>
-<style>
-/* ======================
-   Reset & Global
-====================== */
-* {margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;}
-body {
-    background: #080808;
-    color: #C0C0C0;
-    line-height: 1.6;
-    overflow-x: hidden;
-    scroll-behavior: smooth;
-}
-a {text-decoration:none; color:inherit;}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ICONS COMMUNITY • الرئيسية</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@400;500;600;700&display=swap');
+        
+        :root { --red: #FF0000; }
+        body { font-family: 'Inter', system-ui, sans-serif; }
+        .title-font { font-family: 'Orbitron', sans-serif; }
 
-/* أنيميشن الانتقال للأقسام */
-section {
-    padding: 80px 20px;
-    max-width: 1000px;
-    margin: 50px auto;
-    border-radius: 20px;
-    transition: all 0.8s cubic-bezier(0.2, 1, 0.3, 1);
-    position: relative;
-    overflow: hidden;
-    background-size: cover !important;
-    background-position: center !important;
-    border: 1px solid rgba(225, 6, 0, 0.3);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-}
+        .neon-red { text-shadow: 0 0 10px #FF0000, 0 0 20px #FF0000, 0 0 40px #FF0000; }
+        .section-watermark { font-family: 'Orbitron', sans-serif; font-weight: 900; letter-spacing: -0.05em; }
 
-/* طبقة تظليل فوق الصور لتوضيح الكلام */
-section::before {
-    content: "";
-    position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background: rgba(0, 0, 0, 0.75); /* تظليل خلفية الكلام */
-    z-index: 1;
-}
+        .hero-frame { box-shadow: 0 0 80px -20px #FF0000, inset 0 0 60px -20px #FF0000; }
+        .card-hover:hover { transform: translateY(-12px) scale(1.04); box-shadow: 0 0 50px -10px #FF0000; }
 
-/* التأكد من بقاء النص فوق التظليل */
-section > * {
-    position: relative;
-    z-index: 2;
-}
+        .glitch { position: relative; color: #fff; font-size: 4rem; font-weight: 900; letter-spacing: 0.05em; }
+        .glitch::before, .glitch::after { content: attr(data-text); position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+        .glitch::before { color: #FF0000; animation: glitch-anim 2s infinite linear alternate-reverse; clip-path: polygon(0 0, 100% 0, 100% 33%, 0 33%); }
+        .glitch::after { color: #00ffff; animation: glitch-anim2 1.5s infinite linear alternate-reverse; clip-path: polygon(0 67%, 100% 67%, 100% 100%, 0 100%); }
 
-/* تخصيص خلفيات الأقسام (صور ثائرة) */
-#rules { background: url('https://i.imgur.com/lLuGHdT.jpeg'); } /* خلفية قوانين */
-#staff { background: url('https://i.imgur.com/zC8mBib.jpeg'); } /* خلفية فريق العمل */
-#about { background: url('https://i.imgur.com/rXbSYuM.jpeg'); } /* خلفية عن المجتمع */
-#faq { background: url('https://i.imgur.com/dhrlyJ6.jpeg'); } /* خلفية الأسئلة */
+        @keyframes glitch-anim { 0%{transform:translate(0)} 20%{transform:translate(-5px,5px)} 40%{transform:translate(-5px,-5px)} 60%{transform:translate(5px,5px)} 80%{transform:translate(5px,-5px)} 100%{transform:translate(0)} }
+        @keyframes glitch-anim2 { 0%{transform:translate(0)} 25%{transform:translate(3px,-3px)} 50%{transform:translate(-3px,3px)} 75%{transform:translate(3px,3px)} 100%{transform:translate(0)} }
 
-h2 {color:#E10600; font-size:2.2em; margin-bottom:30px; border-right: 5px solid #E10600; padding-right: 15px;}
+        .custom-cursor { position: fixed; width: 28px; height: 28px; border: 2px solid #FF0000; border-radius: 50%; pointer-events: none; z-index: 99999; mix-blend-mode: difference; box-shadow: 0 0 15px #FF0000; transform: translate(-50%, -50%); display: none; }
+        @media (min-width: 1024px) { .custom-cursor { display: block; } }
 
-/* ======================
-   Header & Dropdown
-====================== */
-header {
-    position: fixed;
-    top: 0; width: 100%;
-    background: rgba(17, 17, 17, 0.95);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 40px;
-    z-index: 2000;
-    border-bottom: 2px solid #E10600;
-}
-header img {height: 50px;}
+        #particles { position: fixed; inset: 0; pointer-events: none; z-index: -1; }
+        .scanline { position: fixed; inset: 0; pointer-events: none; z-index: 10; background: repeating-linear-gradient(transparent, transparent 3px, rgba(255,0,0,0.035) 3px, rgba(255,0,0,0.035) 6px); animation: scan 8s linear infinite; }
+        @keyframes scan { 0% { background-position: 0 0; } 100% { background-position: 0 100%; } }
 
-.dropdown { position: relative; display: inline-block; }
-.dropbtn {
-    background: #E10600;
-    color: white;
-    padding: 12px 20px;
-    font-size: 16px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: bold;
-}
-.dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #111;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px rgba(0,0,0,0.5);
-    z-index: 1;
-    border: 1px solid #E10600;
-    left: 0;
-}
-.dropdown-content a {
-    color: white;
-    padding: 12px 16px;
-    display: block;
-    text-align: right;
-    transition: 0.3s;
-}
-.dropdown-content a:hover { background-color: #E10600; transform: translateX(-5px); }
-.dropdown:hover .dropdown-content { display: block; animation: fadeIn 0.3s; }
+        .toast { animation: toast-pop 0.4s ease, toast-fade 3s 1s forwards; }
+        @keyframes toast-pop { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        @keyframes toast-fade { to { opacity: 0; transform: translateY(-20px); } }
 
-@keyframes fadeIn { from {opacity:0;} to {opacity:1;} }
+        .fixed-online { position: fixed; left: 20px; top: 120px; width: 280px; z-index: 40; display: none; }
+        @media (min-width: 1280px) { .fixed-online { display: block; } }
 
-/* ======================
-   Hero Section
-====================== */
-.hero {
-    display: flex; flex-direction: column; align-items: center; text-align: center;
-    padding: 120px 20px; border-bottom: 3px solid #E10600;
-    background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('https://i.imgur.com/Pbsd4opng');
-    background-size: contain;
-}
-.hero img {width: 200px; border-radius: 20px; box-shadow: 0 0 30px #E10600; margin-bottom: 25px;}
-.hero h1 {color:#E10600; font-size: 3.5em; margin-bottom: 15px;}
-
-/* ======================
-   Staff & Cards
-====================== */
-.staff-grid {display: flex; flex-wrap: wrap; gap: 20px;}
-.staff-card {
-    background: rgba(17,17,17,0.9); padding: 20px; flex: 1 1 250px;
-    border: 2px solid #E10600; border-radius: 12px; text-align: center;
-    transition: 0.4s;
-}
-.staff-card:hover {transform: scale(1.05); box-shadow: 0 0 20px #E10600;}
-.staff-card img {width: 100px; height: 100px; border-radius: 50%; margin-bottom: 10px;}
-
-.card {
-    background: rgba(17,17,17,0.8); padding: 20px; margin-bottom: 20px;
-    border-left: 5px solid #E10600; border-radius: 8px; transition: 0.3s;
-}
-.card:hover {transform: translateX(-10px); background: rgba(225,6,0,0.1);}
-
-/* ======================
-   Buttons & Animations
-====================== */
-.footer-btn {
-    position: fixed; bottom: 20px; left: 20px;
-    background: #E10600; color: #fff; border: none;
-    padding: 15px 25px; border-radius: 10px; cursor: pointer;
-    font-weight: bold; box-shadow: 0 0 15px #E10600; z-index: 100;
-}
-
-/* تأثير الضغطة */
-.btn-animate { transition: transform 0.1s; }
-.btn-animate:active { transform: scale(0.9) rotate(2deg); }
-
-/* ======================
-   FAQ
-====================== */
-.faq-item {border: 1px solid #E10600; margin-bottom: 10px; border-radius: 8px; background: rgba(0,0,0,0.5);}
-.faq-item button {
-    width: 100%; background: none; color: #fff; padding: 15px;
-    text-align: right; border: none; cursor: pointer; font-size: 1.1em;
-}
-.faq-content { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; background: rgba(0,0,0,0.3); }
-
-@media(max-width:768px){ header {flex-direction: row; padding: 10px;} .hero h1 {font-size: 2.2em;} }
-</style>
+        .bold-text { font-weight: 700; }
+    </style>
 </head>
-<body>
+<body class="bg-zinc-950 text-white overflow-x-hidden">
 
-<header>
-  <img src="https://i.imgur.com/rpga9P1.png" alt="ICONS COMMUNITY">
-  <div class="dropdown">
-    <button class="dropbtn">اضهر القائمة</button>
-    <nav class="dropdown-content">
-      <a href="#home">الرئيسية</a>
-      <a href="#rules">القوانين</a>
-      <a href="#staff">الإدارة</a>
-      <a href="#about">عن المجتمع</a>
-      <a href="#faq">الأسئلة</a>
+    <!-- Particles + Scanline + Cursor -->
+    <canvas id="particles"></canvas>
+    <div class="scanline"></div>
+    <div id="custom-cursor" class="custom-cursor"></div>
+
+    <!-- Fixed Online Sidebar -->
+    <div class="fixed-online bg-zinc-900/95 backdrop-blur-xl border border-red-500/30 rounded-3xl p-5">
+        <h3 class="text-red-500 text-sm tracking-widest mb-4 text-center">الأعضاء المتصلون الآن</h3>
+        <iframe src="https://discord.com/widget?id=1335328581018189854&theme=dark" width="100%" height="420" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-scripts allow-same-origin"></iframe>
+    </div>
+
+    <!-- Navbar -->
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-black/90 backdrop-blur-xl border-b border-red-500/30">
+        <div class="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
+            <div onclick="document.getElementById('home').scrollIntoView({ behavior: 'smooth' })" class="flex items-center gap-3 cursor-pointer group">
+                <div class="w-10 h-10 bg-red-600 rounded-xl flex items-center justify-center text-2xl font-black title-font neon-red group-hover:scale-110 transition-transform">I</div>
+                <div class="glitch title-font text-3xl font-black tracking-tighter neon-red" data-text="ICONS">ICONS</div>
+                <span class="title-font text-3xl font-black tracking-tighter text-white">COMMUNITY</span>
+            </div>
+        </div>
     </nav>
-  </div>
-</header>
 
-<section class="hero" id="home">
-  <img src="https://i.imgur.com/13OD7nE.jpeg" alt="ICONS COMMUNITY">
-  <h1>ICONS COMMUNITY</h1>
-  <p>هو سيرفر ديسكورد احترافي يهدف إلى بناء مجتمع تفاعلي يجمع بين الإبداع، التطوير، والترفيه في بيئة منظمة وآمنة للجميع.
-  نسعى إلى توفير مساحة تجمع أصحاب الاهتمامات المشتركة، سواء في مجالات الألعاب، التقنية، التصميم، صناعة المحتوى، أو حتى النقاشات العامة، مع التركيز على الاحترام المتبادل وروح التعاون
-  نسعى الى بناء مجتمع مميز يكون مرجعًا للإبداع والتفاعل الإيجابي، ويمنح أعضائه فرصة للنمو وتطوير مهاراتهم ضمن بيئة داعمة ومحفزة</p>
-</section>
+    <!-- HERO + Welcome -->
+    <section id="home" class="min-h-screen flex items-center justify-center relative pt-20">
+        <div class="absolute inset-0 bg-[radial-gradient(at_center,#FF000010_0%,transparent_70%)]"></div>
+        
+        <div class="max-w-5xl mx-auto px-6 text-center relative z-10">
+            <div class="hero-frame inline-block p-4 bg-zinc-900 rounded-[3.5rem] border-8 border-red-600">
+                <img src="https://i.imgur.com/Lhwq5PE.png" alt="Banner" class="rounded-3xl w-full max-w-4xl">
+            </div>
 
-<section id="rules">
-<h2>RULES | ICONS COMMUNITY</h2>
-<div class="card btn-animate"><h3>احترام الأعضاء</h3><p>احترام جميع الأعضاء وعدم الإساءة.</p></div>
-<div class="card btn-animate"><h3>منع السب والشتم</h3><p>عدم استخدام أي ألفاظ مسيئة أو مهينة.</p></div>
-<div class="card btn-animate"><h3>منع الإعلانات</h3><p>ممنوع نشر روابط أو إعلانات بدون إذن OWNER.</p></div>
-<div class="card btn-animate"><h3>الالتزام بالقنوات</h3><p>احترام الرومات الكتابية والصوتية.</p></div>
-</section>
+            <div class="mt-12">
+                <h1 >مرحبا بك في الموقع الرسمي لسيرفر</h1>
+                <h2 class="text-3xl md:text-3xl title-font font-black tracking-tighter neon-BLACK mt-2">I C O N S C O M M U N I T Y</h2>
+            </div>
+        </div>
+    </section>
 
-<section id="staff">
-<h2>STAFF TEAM | ICONS COMMUNITY</h2>
-<div class="staff-grid">
-<div class="staff-card btn-animate"><img src="https://i.imgur.com/JhfNkuM.png"><h3>BLACK | OWNER</h3></div>
-<div class="staff-card btn-animate"><img src="https://i.imgur.com/AKebnUh.png"><h3>AHMED | CO OWNER</h3></div>
-<div class="staff-card btn-animate"><img src="https://i.imgur.com/pcHCDC4.gif"><h3>MAJED | CO OWNER</h3></div>
-<div class="staff-card btn-animate"><img src="https://i.imgur.com/sYulqvZ.png"><h3>AZOZ | SENIOR</h3></div>
-<div class="staff-card btn-animate"><img src="https://i.imgur.com/B149Tkc.gif"><h3>CHEF | SENIOR</h3></div>
-<div class="staff-card btn-animate"><img src="https://i.imgur.com/cGEvFCQ.png"><h3>HAMADA | DISTINGUISHED</h3></div>
+    <!-- Stats -->
+    <section class="py-12 border-t border-red-500/20">
+        <div class="max-w-5xl mx-auto px-6">
+            <div class="bg-zinc-900/80 backdrop-blur-xl border border-red-500/30 rounded-3xl px-10 py-8 flex flex-wrap justify-center gap-12 text-center">
+                الاحصائيات الخاصه بسيرفر
+            ICONS COMMUNITY
+                <div><span id="members" class="text-5xl font-black text-red-500 bold-text">745</span><br><span class="text-sm tracking-widest">MEMBERS</span></div>
+                <div><span id="online" class="text-5xl font-black text-red-500 bold-text">312</span><br><span class="text-sm tracking-widest">ONLINE</span></div>
+                <div><span id="boosts" class="text-5xl font-black text-red-500 bold-text">48</span><br><span class="text-sm tracking-widest">BOOSTS</span></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- RULES - Full Exact Text -->
+    <section id="rules" class="relative py-24 bg-zinc-950 border-t border-red-500/20">
+        <div class="section-watermark absolute inset-0 flex items-center justify-center pointer-events-none text-[18rem] text-white/5">RULES</div>
+        <div class="max-w-4xl mx-auto px-6 relative z-10">
+            <div class="text-center mb-12">
+                <span class="px-10 py-3 bg-red-600/10 text-red-500 rounded-full text-xl tracking-widest bold-text">قوانين سيرفر ICONS COMMUNITY</span>
+            </div>
+
+            <div id="accordion" class="space-y-6">
+                <!-- Rule 1 -->
+                <div class="accordion-item bg-zinc-900 rounded-3xl overflow-hidden border border-red-500/30">
+                    <div onclick="toggleAccordion(this)" class="accordion-header px-8 py-6 flex items-center justify-between cursor-pointer hover:bg-zinc-800/70 bold-text">
+                        <h3 class="text-2xl">أولًا: القوانين العامة</h3>
+                        <i class="fa-solid fa-chevron-down text-3xl text-red-500 transition-transform"></i>
+                    </div>
+                    <div class="accordion-content max-h-0 overflow-hidden transition-all duration-500 px-8">
+                        <ol class="list-decimal space-y-4 py-8 text-lg text-zinc-300 bold-text">
+                            <li>الالتزام بجميع شروط وأحكام منصة Discord.</li>
+                            <li>يمنع نشر أو تداول أي محتوى مخالف للقوانين المحلية أو الدولية.</li>
+                            <li>يمنع استخدام الحسابات الوهمية (Alt Accounts) للتحايل على القوانين أو العقوبات.</li>
+                            <li>يمنع نشر الروابط الضارة أو روابط الاحتيال أو أي محتوى يهدف للإضرار بالأعضاء.</li>
+                            <li>يمنع السبام بجميع أنواعه (رسائل متكررة، منشن عشوائي، رموز متكررة).</li>
+                            <li>يمنع انتحال شخصية الإدارة أو أي عضو آخر.</li>
+                            <li>يمنع نشر أو طلب معلومات شخصية خاصة بأي عضو (Doxxing).</li>
+                            <li>الالتزام بتعليمات المشرفين والإدارة في جميع الأوقات.</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <!-- Rule 2 -->
+                <div class="accordion-item bg-zinc-900 rounded-3xl overflow-hidden border border-red-500/30">
+                    <div onclick="toggleAccordion(this)" class="accordion-header px-8 py-6 flex items-center justify-between cursor-pointer hover:bg-zinc-800/70 bold-text">
+                        <h3 class="text-2xl">ثانيًا: قوانين الرومات الصوتية</h3>
+                        <i class="fa-solid fa-chevron-down text-3xl text-red-500 transition-transform"></i>
+                    </div>
+                    <div class="accordion-content max-h-0 overflow-hidden transition-all duration-500 px-8">
+                        <ol class="list-decimal space-y-4 py-8 text-lg text-zinc-300 bold-text">
+                            <li>يمنع إزعاج الآخرين عبر الصراخ، الأصوات المزعجة، أو تشغيل مقاطع صوتية دون إذن.</li>
+                            <li>يمنع مقاطعة المتحدثين بشكل متعمد أو تعطيل النقاش.</li>
+                            <li>يمنع الدخول والخروج المتكرر بهدف الإزعاج.</li>
+                            <li>الالتزام بموضوع الروم الصوتي إن وُجد.</li>
+                            <li>يمنع تسجيل المحادثات الصوتية دون إذن صريح من جميع الأطراف.</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <!-- Rule 3 -->
+                <div class="accordion-item bg-zinc-900 rounded-3xl overflow-hidden border border-red-500/30">
+                    <div onclick="toggleAccordion(this)" class="accordion-header px-8 py-6 flex items-center justify-between cursor-pointer hover:bg-zinc-800/70 bold-text">
+                        <h3 class="text-2xl">ثالثًا: قوانين الرومات الكتابية</h3>
+                        <i class="fa-solid fa-chevron-down text-3xl text-red-500 transition-transform"></i>
+                    </div>
+                    <div class="accordion-content max-h-0 overflow-hidden transition-all duration-500 px-8">
+                        <ol class="list-decimal space-y-4 py-8 text-lg text-zinc-300 bold-text">
+                            <li>الالتزام بموضوع كل روم وعدم الخروج عنه.</li>
+                            <li>يمنع إرسال رسائل متكررة أو عديمة الفائدة.</li>
+                            <li>يمنع نشر الإعلانات أو السيرفرات الأخرى دون إذن رسمي.</li>
+                            <li>يمنع استخدام الألفاظ البذيئة أو المسيئة.</li>
+                            <li>استخدام القنوات المخصصة لطلبات الدعم أو الشكاوى بدلًا من نشرها عشوائيًا.</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <!-- Rule 4 -->
+                <div class="accordion-item bg-zinc-900 rounded-3xl overflow-hidden border border-red-500/30">
+                    <div onclick="toggleAccordion(this)" class="accordion-header px-8 py-6 flex items-center justify-between cursor-pointer hover:bg-zinc-800/70 bold-text">
+                        <h3 class="text-2xl">رابعًا: قوانين الاحترام</h3>
+                        <i class="fa-solid fa-chevron-down text-3xl text-red-500 transition-transform"></i>
+                    </div>
+                    <div class="accordion-content max-h-0 overflow-hidden transition-all duration-500 px-8">
+                        <ol class="list-decimal space-y-4 py-8 text-lg text-zinc-300 bold-text">
+                            <li>الاحترام المتبادل أساس التعامل داخل السيرفر.</li>
+                            <li>يمنع التنمر، السخرية، أو التقليل من أي عضو.</li>
+                            <li>يمنع التمييز بجميع أشكاله (عرقي، ديني، جنسي، فكري).</li>
+                            <li>احترام اختلاف الآراء دون تصعيد أو إساءة.</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <!-- Rule 5 -->
+                <div class="accordion-item bg-zinc-900 rounded-3xl overflow-hidden border border-red-500/30">
+                    <div onclick="toggleAccordion(this)" class="accordion-header px-8 py-6 flex items-center justify-between cursor-pointer hover:bg-zinc-800/70 bold-text">
+                        <h3 class="text-2xl">خامسًا: قوانين الأسلوب</h3>
+                        <i class="fa-solid fa-chevron-down text-3xl text-red-500 transition-transform"></i>
+                    </div>
+                    <div class="accordion-content max-h-0 overflow-hidden transition-all duration-500 px-8">
+                        <ol class="list-decimal space-y-4 py-8 text-lg text-zinc-300 bold-text">
+                            <li>التحلي بالأدب في الطرح والنقاش.</li>
+                            <li>تجنب الاستفزاز المتعمد أو إثارة الجدل لأجل الجدل.</li>
+                            <li>استخدام لغة واضحة ومفهومة.</li>
+                            <li>تقبل النقد البنّاء وعدم تحويل النقاش إلى شخصنة.</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <!-- Rule 6 -->
+                <div class="accordion-item bg-zinc-900 rounded-3xl overflow-hidden border border-red-500/30">
+                    <div onclick="toggleAccordion(this)" class="accordion-header px-8 py-6 flex items-center justify-between cursor-pointer hover:bg-zinc-800/70 bold-text">
+                        <h3 class="text-2xl">سادسًا: قوانين السياسة والدين</h3>
+                        <i class="fa-solid fa-chevron-down text-3xl text-red-500 transition-transform"></i>
+                    </div>
+                    <div class="accordion-content max-h-0 overflow-hidden transition-all duration-500 px-8">
+                        <ol class="list-decimal space-y-4 py-8 text-lg text-zinc-300 bold-text">
+                            <li>يمنع إثارة المواضيع السياسية الحساسة أو التحريضية.</li>
+                            <li>يمنع الإساءة لأي دين أو معتقد.</li>
+                            <li>يسمح بالنقاشات الفكرية العامة بشرط الالتزام بالاحترام وعدم التحريض.</li>
+                            <li>أي نقاش ديني أو سياسي يخضع لتقدير الإدارة في حال خروجه عن الإطار المقبول.</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <!-- Rule 7 -->
+                <div class="accordion-item bg-zinc-900 rounded-3xl overflow-hidden border border-red-500/30">
+                    <div onclick="toggleAccordion(this)" class="accordion-header px-8 py-6 flex items-center justify-between cursor-pointer hover:bg-zinc-800/70 bold-text">
+                        <h3 class="text-2xl">سابعًا: قوانين احترام الإدارة</h3>
+                        <i class="fa-solid fa-chevron-down text-3xl text-red-500 transition-transform"></i>
+                    </div>
+                    <div class="accordion-content max-h-0 overflow-hidden transition-all duration-500 px-8">
+                        <ol class="list-decimal space-y-4 py-8 text-lg text-zinc-300 bold-text">
+                            <li>قرارات الإدارة نهائية وتُحترم.</li>
+                            <li>يمنع التشهير أو التحريض ضد الإدارة.</li>
+                            <li>يمكن تقديم الشكاوى أو الاعتراضات عبر القنوات المخصصة لذلك فقط.</li>
+                            <li>يمنع استغلال أي خطأ إداري لإثارة الفوضى.</li>
+                            <li>يحق للإدارة اتخاذ الإجراءات المناسبة (تنبيه – ميوت – طرد – حظر) حسب المخالفة.</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+<!-- COMPACT STAFF SIDEBAR - SMALL SIZE (Right Side - Mouse Position) -->
+<div class="fixed top-24 right-6 w-60 bg-zinc-950/95 backdrop-blur-xl border border-red-500/40 rounded-3xl p-5 shadow-2xl z-50 overflow-hidden">
+    
+    <!-- THE OWNERS -->
+    <div class="mb-8">
+        <h3 class="text-amber-400 text-base font-bold mb-4 flex items-center gap-2">
+             فريق الإدارة <i class="fa-solid fa-crown text-yellow-500"></i>
+           
+        </h3>
+        <div class="space-y-5">
+            <!-- BLACK -->
+            <div class="flex items-center gap-3 group">
+                <img src="https://i.imgur.com/JhfNkuM.png" class="w-11 h-11 rounded-2xl object-cover border-2 border-red-600 group-hover:border-red-400 group-hover:shadow-[0_0_20px_#ef4444] transition-all duration-300">
+                <div>
+                    <p class="text-white font-bold text-[15px]">BLACK</p>
+                    <p class="text-red-500 text-[10px] tracking-widest">OWNER</p>
+                </div>
+            </div>
+            
+            <!-- MAJED -->
+            <div class="flex items-center gap-3 group">
+                <img src="https://i.imgur.com/pcHCDC4.gif" class="w-11 h-11 rounded-2xl object-cover border-2 border-red-600 group-hover:border-red-400 group-hover:shadow-[0_0_20px_#ef4444] transition-all duration-300">
+                <div>
+                    <p class="text-white font-bold text-[15px]">MAJED</p>
+                    <p class="text-red-500 text-[10px] tracking-widest">CO OWNER</p>
+                </div>
+            </div>
+            
+            <!-- AHMED -->
+            <div class="flex items-center gap-3 group">
+                <img src="https://i.imgur.com/AKebnUh.png" class="w-11 h-11 rounded-2xl object-cover border-2 border-red-600 group-hover:border-red-400 group-hover:shadow-[0_0_20px_#ef4444] transition-all duration-300">
+                <div>
+                    <p class="text-white font-bold text-[15px]">AHMED</p>
+                    <p class="text-red-500 text-[10px] tracking-widest">CO OWNER</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- THE SENIORS -->
+    <div>
+        <div class="space-y-5">
+            <!-- AZOZ -->
+            <div class="flex items-center gap-3 group">
+                <img src="https://i.imgur.com/0O7RCwO.png" class="w-11 h-11 rounded-2xl object-cover border-2 border-red-600 group-hover:border-red-400 group-hover:shadow-[0_0_20px_#ef4444] transition-all duration-300">
+                <div>
+                    <p class="text-white font-bold text-[15px]">AZOZ</p>
+                    <p class="text-red-500 text-[10px] tracking-widest">SENIOR</p>
+                </div>
+            </div>
+            
+            <!-- CHEF -->
+            <div class="flex items-center gap-3 group">
+                <img src="https://i.imgur.com/B149Tkc.gif" class="w-11 h-11 rounded-2xl object-cover border-2 border-red-600 group-hover:border-red-400 group-hover:shadow-[0_0_20px_#ef4444] transition-all duration-300">
+                <div>
+                    <p class="text-white font-bold text-[15px]">CHEF</p>
+                    <p class="text-red-500 text-[10px] tracking-widest">SENIOR</p>
+                </div>
+            </div>
+                        <!-- HAMADA -->
+            <div class="flex items-center gap-3 group">
+                <img src="https://i.imgur.com/cGEvFCQ.png" class="w-11 h-11 rounded-2xl object-cover border-2 border-red-600 group-hover:border-red-400 group-hover:shadow-[0_0_20px_#ef4444] transition-all duration-300">
+                <div>
+                    <p class="text-white font-bold text-[15px]">HAMADA</p>
+                    <p class="text-red-500 text-[10px] tracking-widest">عم المجال كلو</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
-</section>
 
-<section id="about">
-<h2>ABOUT US | ICONS COMMUNITY</h2>
-<p>ICONS COMMUNITY هو مجتمع ديسكورد متنوع تم تأسيسه قبل 380 يوم، ويهدف إلى جمع الأعضاء في بيئة تفاعلية يسودها الاحترام، وسعة الصدر، وروح الاستمتاع الجماعي.</p>
-<ul style="margin-right: 25px; color: #E10600; font-weight: bold;">
-<li>الألعاب</li>
-<li>التقنية</li>
-<li>النقاشات العامة</li>
-<li>مجتمعات التصميم وصناعة المحتوى</li>
-</ul>
-<p>ما يميز ICONS COMMUNITY هو اعتماد أنظمة وبوتات متقدمة تسهّل على العضو تنفيذ ما يريد بسرعة وسلاسة، مع تنظيم يحافظ على تجربة مريحة وآمنة للجميع.</p>
-</section>
+    <!-- Buttons -->
+    <section class="py-20 border-t border-red-500/20">
+        <div class="max-w-2xl mx-auto px-6 flex flex-col sm:flex-row gap-6 justify-center">
+            <button onclick="copyInvite()" class="flex-1 py-6 bg-zinc-900 hover:bg-red-600 transition-all rounded-3xl text-xl font-bold flex items-center justify-center gap-3 bold-text">
+                <i class="fa-solid fa-copy"></i> نسخ رابط الدعوة
+            </button>
+            <button onclick="joinServer()" class="flex-1 py-6 bg-red-600 hover:bg-red-700 transition-all rounded-3xl text-xl font-bold flex items-center justify-center gap-3 bold-text">
+                <i class="fa-solid fa-discord"></i> دخول إلى السيرفر
+            </button>
+        </div>
+    </section>
 
-<section id="faq">
-<h2>❓ FAQ | ICONS COMMUNITY</h2>
-<div class="faq-item"><button class="btn-animate">كيف أرفع اللفل؟</button><div class="faq-content"><p style="padding:15px;">النشاط الكتابي، التفاعل الصوتي، نظام النقاط.</p></div></div>
-<div class="faq-item"><button class="btn-animate">فوائد رفع اللفل؟</button><div class="faq-content"><p style="padding:15px;">رتب وصلاحيات وذهب وغرف صوتية مؤقتة.</p></div></div>
-<div class="faq-item"><button class="btn-animate">ماهي فائدتها؟ SERVER BOOSTER رتبه</button><div class="faq-content"><p style="padding:15px;">تمنح عند دعم السيرفر ويتم اعطائك صلاحيه انشاء رول مخصص باسمك.</p></div></div>
-<div class="faq-item"><button class="btn-animate">الإعلانات مسموحة؟</button><div class="faq-content"><p style="padding:15px;">واخذ الموافقة لنشر اعلانك , owner تواصل مع .</p></div></div>
-<div class="faq-item"><button class="btn-animate">ماذا عند مخالفة القوانين؟</button><div class="faq-content"><p style="padding:15px;">تحذير → ميوت → تايم أوت.</p></div></div>
-<div class="faq-item"><button class="btn-animate">كيف أرتقي في الرتب؟</button><div class="faq-content"><p style="padding:15px;">حسب نشاط العضو وتفاعله.</p></div></div>
-<div class="faq-item"><button class="btn-animate">التواصل مع الإدارة؟</button><div class="faq-content"><p style="padding:15px;">عبر الخاص مع اي شخص يمتلك رول سينيور فما أعلى.</p></div></div>
-<div class="faq-item"><button class="btn-animate">فعاليات مستقبلية؟</button><div class="faq-content"><p style="padding:15px;">نعم، مخطط لإطلاق فعاليات ومسابقات.</p></div></div>
-<div class="faq-item"><button class="btn-animate">اقتراحات تطوير؟</button><div class="faq-content"><p style="padding:15px;">تواصل مع المبرمج واطرح فكرتك.</p></div></div>
-</section>
+    <!-- Footer -->
+    <footer class="bg-black py-12 text-center border-t border-red-500/30">
+        <div class="inline-flex items-center gap-3 bg-zinc-900 px-8 py-4 rounded-3xl border border-red-500/30">
+            <span class="text-red-500 text-sm tracking-widest">DEVELOPED WITH PASSION BY</span>
+            <span class="text-white font-bold text-xl title-font">AZOZ</span>
+        </div>
+    </footer>
 
-<button class="footer-btn btn-animate" onclick="window.open('https://discord.gg/ico1', '_blank')">دخول للسيرفر</button>
+    <!-- Toast -->
+    <div id="toast" class="hidden fixed bottom-10 left-1/2 -translate-x-1/2 bg-emerald-600 text-white px-10 py-5 rounded-3xl text-lg shadow-2xl toast">✅ تم نسخ الرابط!</div>
 
-<script>
-// FAQ Accordion
-const faqs=document.querySelectorAll(".faq-item button");
-faqs.forEach(btn=>{
-    btn.addEventListener("click",()=>{
-        const c=btn.nextElementSibling;
-        c.style.maxHeight=c.style.maxHeight?null:c.scrollHeight+"px";
-    });
-});
+    <script>
+        // Custom Cursor
+        const cursor = document.getElementById('custom-cursor');
+        document.addEventListener('mousemove', e => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        });
 
-// Scroll Animation Effect
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.style.opacity = "1";
-            entry.target.style.transform = "translateY(0) scale(1)";
-        } else {
-            entry.target.style.opacity = "0.3";
-            entry.target.style.transform = "translateY(50px) scale(0.95)";
+        // Particles
+        const canvas = document.getElementById('particles');
+        const ctx = canvas.getContext('2d');
+        let w = canvas.width = window.innerWidth;
+        let h = canvas.height = window.innerHeight;
+        let particles = [];
+        class Particle {
+            constructor() {
+                this.x = Math.random() * w;
+                this.y = Math.random() * h;
+                this.size = Math.random() * 3 + 1;
+                this.speedX = Math.random() * 0.6 - 0.3;
+                this.speedY = Math.random() * 0.6 - 0.3;
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                if (this.x < 0 || this.x > w) this.speedX *= -1;
+                if (this.y < 0 || this.y > h) this.speedY *= -1;
+            }
+            draw() {
+                ctx.fillStyle = '#FF0000';
+                ctx.globalAlpha = 0.7;
+                ctx.fillRect(this.x, this.y, this.size, this.size);
+            }
         }
-    });
-}, { threshold: 0.1 });
+        for (let i = 0; i < 90; i++) particles.push(new Particle());
+        function animate() {
+            ctx.clearRect(0, 0, w, h);
+            particles.forEach(p => { p.update(); p.draw(); });
+            requestAnimationFrame(animate);
+        }
+        animate();
+        window.addEventListener('resize', () => {
+            w = canvas.width = window.innerWidth;
+            h = canvas.height = window.innerHeight;
+        });
 
-document.querySelectorAll('section').forEach(section => {
-    observer.observe(section);
-});
-</script>
+        // Accordion
+        function toggleAccordion(header) {
+            const content = header.nextElementSibling;
+            const icon = header.querySelector('i');
+            document.querySelectorAll('.accordion-content').forEach(c => {
+                if (c !== content) c.style.maxHeight = null;
+            });
+            document.querySelectorAll('.accordion-header i').forEach(i => {
+                if (i !== icon) i.style.transform = 'rotate(0deg)';
+            });
+            if (content.style.maxHeight) {
+                content.style.maxHeight = null;
+                icon.style.transform = 'rotate(0deg)';
+            } else {
+                content.style.maxHeight = content.scrollHeight + "px";
+                icon.style.transform = 'rotate(180deg)';
+            }
+        }
+
+        // Join & Copy
+        function joinServer() { window.open('https://discord.gg/ico1', '_blank'); }
+        function copyInvite() {
+            navigator.clipboard.writeText('https://discord.gg/ico1');
+            const toast = document.getElementById('toast');
+            toast.classList.remove('hidden');
+            setTimeout(() => toast.classList.add('hidden'), 2800);
+        }
+
+        // Live Online
+        async function updateLive() {
+            try {
+                const res = await fetch('https://discord.com/api/guilds/1335328581018189854/widget.json');
+                const data = await res.json();
+                document.getElementById('online').textContent = data.presence_count || 312;
+            } catch(e) {}
+        }
+
+        window.onload = () => {
+            updateLive();
+            setInterval(updateLive, 25000);
+            // Open first rule
+            const first = document.querySelector('.accordion-header');
+            if (first) toggleAccordion(first);
+        };
+
+        console.log('%cICONS COMMUNITY - النسخة النهائية المحدثة 🔥', 'color:#FF0000;font-family:Orbitron;font-size:16px;');
+    </script>
 </body>
 </html>
-
